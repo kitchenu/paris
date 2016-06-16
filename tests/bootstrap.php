@@ -1,7 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/idiorm.php';
-require_once dirname(__FILE__) . "/../paris.php";
+require __DIR__.'/../vendor/autoload.php';
+
+use Paris\Model;
 
 /**
  *
@@ -91,75 +92,75 @@ class ModelWithCustomConnection extends Model {
 
 class Profile extends Model {
     public function user() {
-        return $this->belongs_to('User');
+        return $this->belongsTo('User');
     }
 } 
 class User extends Model {
     public function profile() {
-        return $this->has_one('Profile');
+        return $this->hasOne('Profile');
     }
 }
 class UserTwo extends Model {
     public function profile() {
-        return $this->has_one('Profile', 'my_custom_fk_column');
+        return $this->hasOne('Profile', 'my_custom_fk_column');
     }
 }
 class UserFive extends Model {
     public function profile() {
-        return $this->has_one('Profile', 'my_custom_fk_column', 'name');
+        return $this->hasOne('Profile', 'my_custom_fk_column', 'name');
     }
 }
 class ProfileTwo extends Model {
     public function user() {
-        return $this->belongs_to('User', 'custom_user_fk_column');
+        return $this->belongsTo('User', 'custom_user_fk_column');
     }
 }
 class ProfileThree extends Model {
     public function user() {
-        return $this->belongs_to('User', 'custom_user_fk_column', 'name');
+        return $this->belongsTo('User', 'custom_user_fk_column', 'name');
     }
 }
 class Post extends Model { }
 class UserThree extends Model {
     public function posts() {
-        return $this->has_many('Post');
+        return $this->hasMany('Post');
     }
 }
 class UserFour extends Model {
     public function posts() {
-        return $this->has_many('Post', 'my_custom_fk_column');
+        return $this->hasMany('Post', 'my_custom_fk_column');
     }
 }
 class UserSix extends Model {
     public function posts() {
-        return $this->has_many('Post', 'my_custom_fk_column', 'name');
+        return $this->hasMany('Post', 'my_custom_fk_column', 'name');
     }
 }
 class Author extends Model { }
 class AuthorBook extends Model { }
 class Book extends Model {
     public function authors() {
-        return $this->has_many_through('Author');
+        return $this->hasManyThrough('Author');
     }
 }
 class BookTwo extends Model {
     public function authors() {
-        return $this->has_many_through('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id');
+        return $this->hasManyThrough('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id');
     }
 }
 class BookThree extends Model {
     public function authors() {
-        return $this->has_many_through('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id', 'custom_book_id_in_book_table', 'custom_author_id_in_author_table');
+        return $this->hasManyThrough('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id', 'custom_book_id_in_book_table', 'custom_author_id_in_author_table');
     }
 }
 class BookFour extends Model {
     public function authors() {
-        return $this->has_many_through('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id', null, 'custom_author_id_in_author_table');
+        return $this->hasManyThrough('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id', null, 'custom_author_id_in_author_table');
     }
 }
 class BookFive extends Model {
     public function authors() {
-        return $this->has_many_through('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id', 'custom_book_id_in_book_table');
+        return $this->hasManyThrough('Author', 'AuthorBook', 'custom_book_id', 'custom_author_id', 'custom_book_id_in_book_table');
     }
 }
 class MockPrefix_Simple extends Model { } 
